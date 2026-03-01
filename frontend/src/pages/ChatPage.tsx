@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GradientBackground } from '../components/common/GradientBackground';
 import { Button } from '../components/common/Button';
+import { AppHeader } from '../components/common/AppHeader';
 import { OnboardingModal } from '../components/chat/OnboardingModal';
 import { useAuthStore } from '../store/authStore';
 import { chatApi } from '../services/api';
@@ -137,38 +138,10 @@ export function ChatPage() {
       <OnboardingModal isOpen={showOnboarding} onComplete={handleOnboardingComplete} />
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-4 border-b border-white/10 bg-black/20 backdrop-blur-md flex-shrink-0">
-        <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-              CogniTrack
-            </span>
-            {isDemo && (
-              <span className="ml-2 px-2 py-1 bg-violet-500/20 text-violet-300 text-xs rounded-full font-medium border border-violet-500/30">
-                Demo Mode
-              </span>
-            )}
-          </Link>
-
-          <nav className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
-            <Link to="/tests" className="text-gray-400 hover:text-white transition-colors">Tests</Link>
-            <Link to="/scheduler" className="text-gray-400 hover:text-white transition-colors">Scheduler</Link>
-            <Link to="/dna" className="text-gray-400 hover:text-white transition-colors">DNA</Link>
-            <Link to="/chat" className="text-white font-medium">AI Tutor</Link>
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/10">
-              <span className="text-sm text-gray-300">Hi, {user?.name || 'User'}</span>
-              <Button variant="secondary" size="sm" onClick={handleLogout}>Logout</Button>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <AppHeader currentPage="chat" userName={user?.name} isDemo={isDemo} onLogout={handleLogout} />
 
       {/* Chat Area */}
-      <main className="relative z-10 flex-1 flex flex-col max-w-5xl w-full mx-auto px-6">
+      <main className="relative z-10 flex-1 flex flex-col max-w-5xl w-full mx-auto px-4 sm:px-6">
         {/* Messages */}
         <div className="flex-1 overflow-y-auto py-6 space-y-4">
           {historyLoading ? (
@@ -182,8 +155,8 @@ export function ChatPage() {
           ) : messages.length === 0 ? (
             /* Empty State */
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/30">
-                <Bot className="w-8 h-8 text-white" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/30">
+                <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">CogniTrack Study Assistant</h2>
               <p className="text-gray-400 mb-8 max-w-md">
@@ -191,7 +164,7 @@ export function ChatPage() {
               </p>
 
               {/* Quick prompts */}
-              <div className="grid grid-cols-2 gap-3 max-w-lg">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
                 {QUICK_PROMPTS.map((prompt) => (
                   <button
                     key={prompt}
@@ -221,7 +194,7 @@ export function ChatPage() {
                       </div>
                     )}
                     <div
-                      className={`max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                      className={`max-w-[88%] sm:max-w-[75%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                         msg.role === 'user'
                           ? 'bg-violet-500/20 border border-violet-500/30 text-white'
                           : 'bg-white/[0.06] border border-white/10 text-gray-200'
@@ -296,14 +269,14 @@ export function ChatPage() {
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about your study plan, optimal hours, fatigue management..."
                 rows={1}
-                className="w-full px-4 py-3 pr-12 rounded-xl border border-white/15 bg-white/[0.06] backdrop-blur-md text-white placeholder-gray-500 focus:border-violet-500 focus:outline-none resize-none text-sm"
+                className="w-full px-4 py-3 pr-12 rounded-xl border border-white/15 bg-white/[0.06] backdrop-blur-md text-white placeholder-gray-500 focus:border-violet-500 focus:outline-none resize-none text-base sm:text-sm"
                 style={{ minHeight: 48, maxHeight: 120 }}
               />
             </div>
             <button
               onClick={() => handleSend()}
               disabled={!input.trim() || loading}
-              className="w-12 h-12 rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center text-white hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r from-violet-500 to-purple-600 flex items-center justify-center text-white hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
             >
               <Send className="w-5 h-5" />
             </button>

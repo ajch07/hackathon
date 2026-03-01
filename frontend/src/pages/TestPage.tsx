@@ -9,6 +9,7 @@ import { PatternTest } from '../components/tests/PatternTest';
 import { AttentionTest } from '../components/tests/AttentionTest';
 import { SessionQualityCard } from '../components/tests/SessionQualityCard';
 import { WebcamModule, useWebcam } from '../components/webcam/WebcamModule';
+import { AppHeader } from '../components/common/AppHeader';
 import { useAuthStore } from '../store/authStore';
 import { testsApi } from '../services/api';
 import { Zap, Brain, Eye, Clock, Trophy, ThumbsUp, Dumbbell } from 'lucide-react';
@@ -121,32 +122,9 @@ export function TestPage() {
       <GradientBackground />
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-4 border-b border-white/10 bg-black/20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-              CogniTrack
-            </span>
-          </Link>
+      <AppHeader currentPage="tests" userName={user?.name} isDemo={isDemo} onLogout={handleLogout} />
 
-          <nav className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
-            <Link to="/tests" className="text-white font-medium">Tests</Link>
-            <Link to="/scheduler" className="text-gray-400 hover:text-white transition-colors">Scheduler</Link>
-            <Link to="/dna" className="text-gray-400 hover:text-white transition-colors">DNA</Link>
-            <Link to="/chat" className="text-gray-400 hover:text-white transition-colors">AI Tutor</Link>
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/10">
-              <span className="text-sm text-gray-300">Hi, {user?.name || 'User'}</span>
-              <Button variant="secondary" size="sm" onClick={handleLogout}>Logout</Button>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      <main className="relative z-10 px-6 py-8 max-w-5xl mx-auto">
+      <main className="relative z-10 px-4 sm:px-6 py-6 sm:py-8 max-w-5xl mx-auto">
         <AnimatePresence mode="wait">
           {!selectedTest ? (
             // Test Selection View
@@ -156,12 +134,12 @@ export function TestPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <div className="text-center mb-10">
-                <h1 className="text-3xl font-bold text-white mb-2">Cognitive Tests</h1>
+              <div className="text-center mb-8 sm:mb-10">
+                <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Cognitive Tests</h1>
                 <p className="text-gray-400">Choose a test to measure your current cognitive state</p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 {(Object.entries(testConfig) as [TestType, typeof testConfig[TestType]][]).map(([type, config], index) => (
                   <motion.div
                     key={type}
@@ -208,7 +186,7 @@ export function TestPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              className="max-w-md mx-auto"
+              className="max-w-full sm:max-w-md mx-auto"
             >
               {/* Session Quality Card */}
               <SessionQualityCard
@@ -265,7 +243,7 @@ export function TestPage() {
                    'Keep practicing! Every test helps track your patterns.'}
                 </p>
 
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button onClick={handleBack} variant="secondary" className="flex-1">
                     Take Another Test
                   </Button>
@@ -289,7 +267,7 @@ export function TestPage() {
                 </Button>
               </div>
               
-              <Card className="max-w-2xl mx-auto" gradient="none" glow="purple">
+              <Card className="max-w-full sm:max-w-2xl mx-auto" gradient="none" glow="purple">
                 {(() => {
                   const config = testConfig[selectedTest];
                   const TestComponent = config.Component;

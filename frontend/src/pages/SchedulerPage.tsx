@@ -7,6 +7,7 @@ import { EnergyTimeline } from '../components/scheduler/EnergyTimeline';
 import { RecommendationCard } from '../components/scheduler/RecommendationCard';
 import { FatigueBanner } from '../components/common/FatigueBanner';
 import { WebcamModule, useWebcam } from '../components/webcam/WebcamModule';
+import { AppHeader } from '../components/common/AppHeader';
 import { useAuthStore } from '../store/authStore';
 import { schedulerApi } from '../services/api';
 import { mockSchedules, mockEnergyPattern } from '../utils/mockData';
@@ -117,32 +118,9 @@ export function SchedulerPage() {
       <GradientBackground />
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-4 border-b border-white/10 bg-black/20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-              CogniTrack
-            </span>
-          </Link>
+      <AppHeader currentPage="scheduler" userName={user?.name} isDemo={isDemo} onLogout={handleLogout} />
 
-          <nav className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
-            <Link to="/tests" className="text-gray-400 hover:text-white transition-colors">Tests</Link>
-            <Link to="/scheduler" className="text-white font-medium">Scheduler</Link>
-            <Link to="/dna" className="text-gray-400 hover:text-white transition-colors">DNA</Link>
-            <Link to="/chat" className="text-gray-400 hover:text-white transition-colors">AI Tutor</Link>
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/10">
-              <span className="text-sm text-gray-300">Hi, {user?.name || 'User'}</span>
-              <Button variant="secondary" size="sm" onClick={handleLogout}>Logout</Button>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      <main className="relative z-10 px-6 py-8 max-w-7xl mx-auto">
+      <main className="relative z-10 px-4 sm:px-6 py-6 sm:py-8 max-w-7xl mx-auto">
         {/* Fatigue Banner */}
         <FatigueBanner fatigueLevel={currentFatigueLevel} isWebcamActive={webcam.isActive} />
 
@@ -151,11 +129,11 @@ export function SchedulerPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-white mb-2">Smart Study Scheduler</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Smart Study Scheduler</h1>
           <p className="text-gray-400">Personalized recommendations based on your cognitive patterns</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Energy Timeline */}
@@ -188,13 +166,13 @@ export function SchedulerPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-6 text-white"
+              className="bg-gradient-to-br from-violet-600 to-purple-700 rounded-2xl p-4 sm:p-6 text-white"
             >
               <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-3">
                 <Star className="w-6 h-6 text-violet-300" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Your Peak Time</h3>
-              <p className="text-3xl font-bold mb-1">{peakHour.hourOfDay}:00</p>
+              <p className="text-2xl sm:text-3xl font-bold mb-1">{peakHour.hourOfDay}:00</p>
               <p className="text-sm opacity-80">
                 Your cognitive performance peaks in the {peakHour.hourOfDay < 12 ? 'morning' : peakHour.hourOfDay < 17 ? 'afternoon' : 'evening'}. 
                 Schedule your most demanding tasks here!
@@ -206,7 +184,7 @@ export function SchedulerPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="bg-white/[0.08] backdrop-blur-md rounded-2xl p-6 border border-white/10"
+              className="bg-white/[0.08] backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/10"
             >
               <h3 className="text-lg font-semibold text-white mb-4">Log Your Sleep</h3>
               <p className="text-sm text-gray-400 mb-4">
@@ -241,7 +219,7 @@ export function SchedulerPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-white/[0.08] backdrop-blur-md rounded-2xl p-6 border border-white/10"
+              className="bg-white/[0.08] backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/10"
             >
               <h3 className="text-lg font-semibold text-white mb-4">Insights</h3>
               <div className="space-y-3">

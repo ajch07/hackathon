@@ -6,7 +6,7 @@ import { Brain } from 'lucide-react';
 
 export function RegisterPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 relative">
       <GradientBackground />
 
       <motion.div
@@ -14,7 +14,7 @@ export function RegisterPage() {
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-md relative z-10"
       >
-        <div className="bg-white/[0.08] backdrop-blur-md rounded-3xl p-8 border border-white/10">
+        <div className="bg-white/[0.08] backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/10">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-6">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">

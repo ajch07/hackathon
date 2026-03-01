@@ -7,6 +7,7 @@ import {
 } from 'recharts';
 import { GradientBackground } from '../components/common/GradientBackground';
 import { Button } from '../components/common/Button';
+import { AppHeader } from '../components/common/AppHeader';
 import { useAuthStore } from '../store/authStore';
 import { dnaApi, dashboardApi } from '../services/api';
 import { mockDNAProfile, mockDailyPattern, mockTrendsWithWebcam } from '../utils/mockData';
@@ -209,38 +210,11 @@ export function DNAPage() {
       <GradientBackground />
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-4 border-b border-white/10 bg-black/20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
-              CogniTrack
-            </span>
-            {isDemo && (
-              <span className="ml-2 px-2 py-1 bg-violet-500/20 text-violet-300 text-xs rounded-full font-medium border border-violet-500/30">
-                Demo Mode
-              </span>
-            )}
-          </Link>
-          <nav className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
-            <Link to="/tests" className="text-gray-400 hover:text-white transition-colors">Tests</Link>
-            <Link to="/scheduler" className="text-gray-400 hover:text-white transition-colors">Scheduler</Link>
-            <Link to="/dna" className="text-white font-medium">DNA</Link>
-            <Link to="/chat" className="text-gray-400 hover:text-white transition-colors">AI Tutor</Link>
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/10">
-              <span className="text-sm text-gray-300">Hi, {user?.name || 'User'}</span>
-              <Button variant="secondary" size="sm" onClick={handleLogout}>Logout</Button>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <AppHeader currentPage="dna" userName={user?.name} isDemo={isDemo} onLogout={handleLogout} />
 
-      <main className="relative z-10 px-6 py-8 max-w-7xl mx-auto">
+      <main className="relative z-10 px-4 sm:px-6 py-6 sm:py-8 max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Your Learning DNA</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Your Learning DNA</h1>
           <p className="text-gray-400">Your personalized cognitive profile based on test data</p>
         </motion.div>
 
@@ -252,7 +226,7 @@ export function DNAPage() {
             className="max-w-2xl mx-auto"
           >
             <div
-              className="p-10 rounded-3xl text-center"
+              className="p-6 sm:p-10 rounded-3xl text-center"
               style={{
                 background: 'linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 100%)',
                 backdropFilter: 'blur(12px)',
@@ -315,20 +289,20 @@ export function DNAPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-3xl p-8 relative overflow-hidden"
+              className="rounded-3xl p-4 sm:p-6 md:p-8 relative overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(59,130,246,0.08) 100%)',
                 backdropFilter: 'blur(12px)',
                 border: '1px solid rgba(139,92,246,0.25)',
               }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
                     <Dna className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">Learning DNA Profile</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-white">Learning DNA Profile</h2>
                     <p className="text-sm text-gray-400">Based on {dna.data_points_count} sessions</p>
                   </div>
                 </div>
@@ -341,7 +315,7 @@ export function DNAPage() {
                 </button>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10">
                   <div className="flex items-center gap-2 mb-2">
                     {getChronoIcon(dna.chronotype)}
@@ -409,7 +383,7 @@ export function DNAPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="rounded-3xl p-8"
+              className="rounded-3xl p-4 sm:p-6 md:p-8"
               style={{
                 background: 'rgba(255,255,255,0.06)',
                 backdropFilter: 'blur(12px)',
@@ -481,14 +455,14 @@ export function DNAPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="rounded-3xl p-8"
+              className="rounded-3xl p-4 sm:p-6 md:p-8"
               style={{
                 background: 'rgba(255,255,255,0.06)',
                 backdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255,255,255,0.1)',
               }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
                 <h2 className="text-xl font-semibold text-white">Webcam vs Test Score Correlation</h2>
                 {hasWebcamData && (
                   <span className="px-3 py-1 rounded-full text-xs font-medium bg-violet-500/20 text-violet-300 border border-violet-500/30">
@@ -541,7 +515,7 @@ export function DNAPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="rounded-3xl p-8"
+              className="rounded-3xl p-4 sm:p-6 md:p-8"
               style={{
                 background: 'rgba(255,255,255,0.06)',
                 backdropFilter: 'blur(12px)',
@@ -550,7 +524,7 @@ export function DNAPage() {
             >
               <h2 className="text-xl font-semibold text-white mb-6">Weekly Performance Heatmap</h2>
 
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-2 px-2">
                 <div className="inline-block">
                   {/* Hour labels */}
                   <div className="flex ml-12 mb-1">
