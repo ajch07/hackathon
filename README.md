@@ -705,4 +705,4 @@ The app automatically detects environment via the `ENVIRONMENT` variable:
 
 ---
 
-Built for Hackathon 2025 | MIT License
+MIT License
