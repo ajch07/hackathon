@@ -47,7 +47,7 @@ export function ScoreCard({ title, score, icon, gradient, delay = 0 }: ScoreCard
             transition={{ delay: delay + 0.3 }}
             className="text-4xl font-bold"
           >
-            {score}
+            {Math.round(score)}
           </motion.span>
           <span className="text-lg opacity-70 mb-1">/100</span>
         </div>
@@ -55,7 +55,7 @@ export function ScoreCard({ title, score, icon, gradient, delay = 0 }: ScoreCard
         <div className="mt-4 h-2 bg-white/20 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${score}%` }}
+            animate={{ width: `${Math.round(score)}%` }}
             transition={{ delay: delay + 0.2, duration: 0.8, ease: 'easeOut' }}
             className="h-full bg-white/80 rounded-full"
           />
