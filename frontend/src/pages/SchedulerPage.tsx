@@ -40,24 +40,24 @@ export function SchedulerPage() {
           schedulerApi.getEnergyPattern(),
         ]);
         // Map snake_case to camelCase for schedules
-        const mapped = recRes.data.map((s: Record<string, unknown>) => ({
-          id: s.id,
-          userId: s.user_id,
-          recommendedTime: s.recommended_time,
-          subject: s.subject,
-          cognitiveRequirement: s.cognitive_requirement,
-          estimatedEnergyLevel: s.estimated_energy_level,
-          confidence: s.confidence,
-          reason: s.reason,
-          completed: s.completed,
+        const mapped: StudySchedule[] = recRes.data.map((s: Record<string, unknown>) => ({
+          id: s.id as string,
+          userId: s.user_id as string,
+          recommendedTime: s.recommended_time as string,
+          subject: s.subject as string,
+          cognitiveRequirement: s.cognitive_requirement as string,
+          estimatedEnergyLevel: s.estimated_energy_level as number,
+          confidence: s.confidence as number,
+          reason: s.reason as string,
+          completed: s.completed as boolean,
         }));
         setSchedules(mapped);
         // Map energy patterns
-        const patterns = patRes.data.map((p: Record<string, unknown>) => ({
-          hourOfDay: p.hour_of_day,
-          dayOfWeek: p.day_of_week,
-          averageCognitiveScore: p.average_cognitive_score,
-          sampleCount: p.sample_count,
+        const patterns: EnergyPattern[] = patRes.data.map((p: EnergyPattern & Record<string, unknown>) => ({
+          hourOfDay: (p.hour_of_day ?? p.hourOfDay) as number,
+          dayOfWeek: (p.day_of_week ?? p.dayOfWeek) as number,
+          averageCognitiveScore: (p.average_cognitive_score ?? p.averageCognitiveScore) as number,
+          sampleCount: (p.sample_count ?? p.sampleCount) as number,
         }));
         setEnergyPattern(patterns);
       } catch (err) {
