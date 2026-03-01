@@ -40,24 +40,26 @@ export function SchedulerPage() {
           schedulerApi.getEnergyPattern(),
         ]);
         // Map snake_case to camelCase for schedules
-        const mapped: StudySchedule[] = recRes.data.map((s: Record<string, unknown>) => ({
-          id: s.id as string,
-          userId: s.user_id as string,
-          recommendedTime: s.recommended_time as string,
-          subject: s.subject as string,
-          cognitiveRequirement: s.cognitive_requirement as string,
-          estimatedEnergyLevel: s.estimated_energy_level as number,
-          confidence: s.confidence as number,
-          reason: s.reason as string,
-          completed: s.completed as boolean,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const mapped: StudySchedule[] = (recRes.data as any[]).map((s) => ({
+          id: s.id,
+          userId: s.user_id,
+          recommendedTime: s.recommended_time,
+          subject: s.subject,
+          cognitiveRequirement: s.cognitive_requirement,
+          estimatedEnergyLevel: s.estimated_energy_level,
+          confidence: s.confidence,
+          reason: s.reason,
+          completed: s.completed,
         }));
         setSchedules(mapped);
         // Map energy patterns
-        const patterns: EnergyPattern[] = patRes.data.map((p: EnergyPattern & Record<string, unknown>) => ({
-          hourOfDay: (p.hour_of_day ?? p.hourOfDay) as number,
-          dayOfWeek: (p.day_of_week ?? p.dayOfWeek) as number,
-          averageCognitiveScore: (p.average_cognitive_score ?? p.averageCognitiveScore) as number,
-          sampleCount: (p.sample_count ?? p.sampleCount) as number,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const patterns: EnergyPattern[] = (patRes.data as any[]).map((p) => ({
+          hourOfDay: p.hour_of_day ?? p.hourOfDay,
+          dayOfWeek: p.day_of_week ?? p.dayOfWeek,
+          averageCognitiveScore: p.average_cognitive_score ?? p.averageCognitiveScore,
+          sampleCount: p.sample_count ?? p.sampleCount,
         }));
         setEnergyPattern(patterns);
       } catch (err) {

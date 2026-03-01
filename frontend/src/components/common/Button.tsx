@@ -1,11 +1,15 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'success' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   children: ReactNode;
   isLoading?: boolean;
+  disabled?: boolean;
+  className?: string;
+  onClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 }
 
 const sizes = {
@@ -48,7 +52,8 @@ export function Button({
   isLoading,
   disabled,
   className = '',
-  ...props
+  onClick,
+  type,
 }: ButtonProps) {
   const style = variants[variant];
 
@@ -65,7 +70,8 @@ export function Button({
       `}
       style={style}
       disabled={disabled || isLoading}
-      {...props}
+      onClick={onClick}
+      type={type}
     >
       {isLoading ? (
         <span className="flex items-center justify-center gap-2">

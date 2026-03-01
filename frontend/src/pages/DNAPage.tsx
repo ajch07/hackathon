@@ -195,7 +195,6 @@ export function DNAPage() {
   });
 
   // Correlation
-  const overallScores = trendData.map((t) => t.overall);
   const webcamScores = trendData.filter((t) => t.webcam !== null).map((t) => t.webcam!);
   const hasWebcamData = webcamScores.length >= 3;
   const correlation = hasWebcamData
@@ -440,7 +439,7 @@ export function DNAPage() {
                       color: '#fff',
                       fontSize: 12,
                     }}
-                    formatter={(value: number) => [`${Math.round(value)}`, 'Avg Score']}
+                    formatter={(value: number | undefined) => [`${Math.round(value ?? 0)}`, 'Avg Score']}
                   />
                   {/* Fatigue zone reference areas */}
                   {fatigueHourNums.map((h) => (

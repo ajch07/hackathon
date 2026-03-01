@@ -24,7 +24,7 @@ export function AttentionTest({ onComplete }: AttentionTestProps) {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const totalRounds = 5;
   const ballCount = 5;
 

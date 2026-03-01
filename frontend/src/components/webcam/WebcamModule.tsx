@@ -118,7 +118,8 @@ export function WebcamModule({ isActive, onToggle, onMetrics, autoCloseAfterSave
   const lastEmit = useRef<number>(0);
   const wasBlinking = useRef(false);
   const cameraRef = useRef<{ stop: () => void } | null>(null);
-  const faceMeshRef = useRef<ReturnType<typeof window.FaceMesh> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const faceMeshRef = useRef<any>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const hasSavedRef = useRef(false); // Track if we've already saved to avoid double-close
 
