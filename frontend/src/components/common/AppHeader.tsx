@@ -114,12 +114,7 @@ export function AppHeader({ currentPage, userName, isDemo, onLogout }: AppHeader
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-72 z-50 flex flex-col"
-              style={{
-                background: 'rgba(15, 15, 35, 0.95)',
-                backdropFilter: 'blur(20px)',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
+              className="fixed top-0 right-0 h-full w-72 z-50 flex flex-col bg-[#0f0f23] border-l border-white/10"
               role="dialog"
               aria-label="Navigation menu"
             >
