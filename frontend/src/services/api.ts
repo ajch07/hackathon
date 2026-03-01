@@ -2,7 +2,9 @@ import axios from 'axios';
 import type { AuthResponse, LoginDto, RegisterDto, TestSubmission, TestResult, DashboardData, StudySchedule, EnergyPattern, WebcamSnapshotPayload, WebcamSnapshotResponse, DNAProfileResult, DailyPatternPoint, DNACalculateResponse, ChatMessage, ChatHistoryResponse, OnboardingData, StudyProfile } from '../types';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : '/api',
   headers: {
     'Content-Type': 'application/json',
   },
