@@ -114,18 +114,19 @@ export function AppHeader({ currentPage, userName, isDemo, onLogout }: AppHeader
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-72 z-50 flex flex-col bg-[#0f0f23] border-l border-white/10"
+              className="fixed top-0 right-0 h-full w-72 z-50 flex flex-col border-l border-violet-500/30 shadow-2xl shadow-purple-900/50"
+              style={{ background: 'linear-gradient(180deg, #1a1a2e 0%, #16162a 50%, #0f0f1a 100%)' }}
               role="dialog"
               aria-label="Navigation menu"
             >
               {/* Drawer Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-                <span className="text-sm text-gray-300">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-violet-500/20 bg-violet-900/20">
+                <span className="text-sm text-gray-200 font-medium">
                   Hi, {userName || 'User'}
                 </span>
                 <button
                   onClick={() => setMenuOpen(false)}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/10"
+                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-violet-500/20 border border-violet-500/30"
                   aria-label="Close navigation menu"
                 >
                   <X className="w-5 h-5 text-white" />
@@ -143,10 +144,10 @@ export function AppHeader({ currentPage, userName, isDemo, onLogout }: AppHeader
                   >
                     <Link
                       to={link.path}
-                      className={`block px-4 py-3 rounded-xl text-base font-medium mb-1 transition-colors ${
+                      className={`block px-4 py-3 rounded-xl text-base font-medium mb-2 transition-colors ${
                         currentPage === link.key
-                          ? 'bg-violet-500/20 text-white border border-violet-500/30'
-                          : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                          ? 'bg-violet-500/30 text-white border border-violet-400/50 shadow-lg shadow-violet-500/20'
+                          : 'text-gray-200 bg-white/5 hover:bg-violet-500/20 hover:text-white border border-white/10'
                       }`}
                     >
                       {link.label}
@@ -156,7 +157,7 @@ export function AppHeader({ currentPage, userName, isDemo, onLogout }: AppHeader
               </nav>
 
               {/* Logout */}
-              <div className="px-5 pb-6 pt-2 border-t border-white/10">
+              <div className="px-5 pb-6 pt-2 border-t border-violet-500/20 bg-violet-900/10">
                 <Button variant="secondary" size="md" onClick={onLogout} className="w-full">
                   Logout
                 </Button>
