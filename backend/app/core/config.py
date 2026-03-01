@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     environment: str = "development"  # development | production
     
     # CORS - comma-separated list of allowed origins
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,https://hackathon-delta-hazel.vercel.app"
     
     @property
     def cors_origins_list(self) -> List[str]:
@@ -36,6 +36,4 @@ class Settings(BaseSettings):
 
 @lru_cache()
 def get_settings():
-    return Settings()
-
     return Settings()

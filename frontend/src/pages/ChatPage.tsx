@@ -93,12 +93,26 @@ export function ChatPage() {
     try {
       const res = await chatApi.sendMessage(message);
       setMessages((prev) => [...prev, res.data]);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('[ChatPage] Failed to send message:', err);
+      let errorContent = 'Sorry, something went wrong. Please try again.';
+      if (err && typeof err === 'object' && 'response' in err) {
+        const axiosErr = err as { response?: { status: number; data?: { detail?: string } }; message?: string };
+        if (axiosErr.response?.data?.detail) {
+          errorContent = `Error: ${axiosErr.response.data.detail}`;
+        } else if (axiosErr.response?.status) {
+          errorContent = `Server error (${axiosErr.response.status}). Please try again later.`;
+        }
+      } else if (err && typeof err === 'object' && 'message' in err) {
+        const netErr = err as { message: string };
+        if (netErr.message === 'Network Error') {
+          errorContent = 'Cannot reach the server. Please check your connection or try again later.';
+        }
+      }
       const errorMsg: ChatMessage = {
         id: `error-${Date.now()}`,
         role: 'assistant',
-        content: 'Sorry, something went wrong. Please make sure the OpenAI API key is configured and try again.',
+        content: errorContent,
         timestamp: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, errorMsg]);

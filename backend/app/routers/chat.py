@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from datetime import datetime
 from app.core.database import get_db
 from app.core.security import get_current_user
+from app.core.config import get_settings
 from app.models.user import User
 from app.models.chat_message import ChatMessage
 from app.schemas.chat import (
@@ -24,6 +25,11 @@ def send_message(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    # Check API key is configured before proceeding
+    settings = get_settings()
+    if not settings.openai_api_key:
+        raise HTTPException(status_code=503, detail="OpenAI API key is not configured on the server.")
+
     # Save user message
     user_msg = ChatMessage(
         user_id=current_user.id,
